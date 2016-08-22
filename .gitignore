@@ -5,6 +5,8 @@
 *.so
 *.egg
 *.egg-info
+*.json
+tumblr.py
 data-dev.sqlite
 dist
 build
