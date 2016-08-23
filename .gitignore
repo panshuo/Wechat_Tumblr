@@ -6,6 +6,7 @@
 *.egg
 *.egg-info
 *.json
+*.ini
 tumblr.py
 data-dev.sqlite
 dist
