@@ -67,6 +67,8 @@ def home():
         location = wechat.message.location  # Tuple(X, Y)，对应于 XML 中的 (Location_X, Location_Y)
         # scale = wechat.message.scale  # 对应于 XML 中的 Scale
         label = wechat.message.label  # 对应于 XML 中的 Label
+        user.location = label
+        db.session.add(user)
         response_message = wechat.response_text(menu['LOCATION'].format(label,
                                                                         location[0],
                                                                         location[1],

@@ -15,17 +15,18 @@ def blog_video(site):
     while True:
         media_url = base_url.format(site, MEDIA_NUM)
         response = requests.get(media_url, proxies={"http": "http://10.0.0.4:13000", "https": "https://10.0.0.4:13000"})
-        data = xmltodict.parse(response.content)
-        try:
-            posts = data["tumblr"]["posts"]["post"]
-            for post in posts:
-                video_url = handle_medium_url(post)
-                print video_url
-                result.append(video_url)
-            # length = len(result)
-            return render_template_string(u'{% for video in result %}\n{{ video }}\n{% endfor %}', result=result)
-        except KeyError:
-            break
+        if response.status_code == 200:
+            data = xmltodict.parse(response.content)
+            try:
+                posts = data["tumblr"]["posts"]["post"]
+                for post in posts:
+                    video_url = handle_medium_url(post)
+                    result.append(video_url)
+                return render_template_string(u'{% for video in result %}\n{{ video }}\n{% endfor %}', result=result)
+            except KeyError:
+                break
+        else:
+            return None
 
 
 def handle_medium_url(post):
